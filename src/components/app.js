@@ -3,6 +3,7 @@ import Start from './pages/start';
 import Breaks from './pages/breaks';
 import GeneralSelector from './pages/generalSelector';
 import SimpleSelector from './pages/simpleSelector';
+import ScheduleSelector from './pages/scheduleSelector';
 
 const App = props => {
 
@@ -80,7 +81,7 @@ const App = props => {
     // graveyard: [''], 
   };
 
-  const typesOfMeetings = ['1:1', 'Audits', 'Break 1', 'Break 2', 'Coaching', 'DAS', 'Demo', 'KC', 'Lunch', 'Out', 'Terminal', ];
+  const typesOfMeetings = [['1:1', 'Audits'], ['Break 1', 'Break 2'], ['Coaching', 'DAS'], ['Demo', 'KC'], ['Lunch', 'Out'], ['Terminal',]];
 
   /** ************************************************************ */
   
@@ -315,6 +316,7 @@ const App = props => {
   useEffect(() => {
     console.log('pages: ', pages);
     console.log('adjusted roster: ', adjustedRoster);
+    console.log('corresponding times: ', selectShiftTimeSlots);
   });
 
   useEffect(() => {
@@ -414,15 +416,27 @@ const App = props => {
           back={() => changeView('schedule', 'BACK')}
           action={advisorsWithAlteredSchedules}
         />
+      // : pages.schedules2 ?
+      //   alterList.length > 0 ? 
+      //     <GeneralSelector 
+      //       pageStatus={pageStatus}
+      //       title={`Does ${alterList[alterList.length - 1]}'s schedule need modification?`}
+      //       data={typesOfMeetings}
+      //       next={() => changeView('schedule3', 'NEXT')}
+      //       back={() => changeView('schedule2', 'BACK')}
+      //       action={chooseMeetingTypes}
+      //     />
       : pages.schedules2 ?
         alterList.length > 0 ? 
-          <GeneralSelector 
+          //test
+          <ScheduleSelector 
             pageStatus={pageStatus}
-            title={`What is ${alterList[alterList.length - 1]}'s fixed schedule?`}
-            data={typesOfMeetings}
+            title={`Does ${alterList[alterList.length - 1]}'s schedule need modification?`}
+            meetings={typesOfMeetings}
+            times={selectShiftTimeSlots}
             next={() => changeView('schedule3', 'NEXT')}
             back={() => changeView('schedule2', 'BACK')}
-            action={chooseMeetingTypes}
+            action={() => console.log('clicked')}
           />
         : 
         // refactor this line and add the appropriate component
